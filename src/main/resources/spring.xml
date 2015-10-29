@@ -11,12 +11,12 @@
         <constructor-arg value="John Smith"/>
     </bean>
 
-    <bean id="eventLogger" class="wo_spring_realization.ConsoleEventLogger"/>
+    <bean id="eventLogger" class="wo_spring_realization.loggers.ConsoleEventLogger"/>
 
     <bean id="app"
           class="wo_spring_realization.App">
         <constructor-arg ref="client"/>
-        <constructor-arg ref="eventLogger"/>
+        <constructor-arg ref="cacheFileEventLogger"/>
     </bean>
 
     <bean id="event"
@@ -30,5 +30,13 @@
                   class="java.text.DateFormat"
                   factory-method="getDateTimeInstance"/>
         </constructor-arg>
+    </bean>
+
+    <bean id="cacheFileEventLogger"
+          class="wo_spring_realization.loggers.CacheFileEventLogger"
+          init-method="init"
+          destroy-method="destroy">
+        <constructor-arg value="log.txt"/>
+        <constructor-arg value="3"/>
     </bean>
 </beans>
