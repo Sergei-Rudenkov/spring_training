@@ -7,10 +7,15 @@ public class Client {
 
     private String id;
     private String fullName;
+    private String greeting;
 
     public Client(String id, String fullName) {
         this.fullName = fullName;
         this.id = id;
+    }
+
+    public void setGreeting(String greeting) {
+        this.greeting = greeting;
     }
 
     public String getId() {

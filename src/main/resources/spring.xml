@@ -9,6 +9,7 @@
           class="wo_spring_realization.Client">
         <constructor-arg value="1"/>
         <constructor-arg value="John Smith"/>
+        <property name="greeting" value="Hello there!"/>
     </bean>
 
     <bean id="eventLogger" class="wo_spring_realization.loggers.ConsoleEventLogger"/>
@@ -17,10 +18,18 @@
           class="wo_spring_realization.App">
         <constructor-arg ref="client"/>
         <constructor-arg ref="cacheFileEventLogger"/>
+        <constructor-arg>
+            <map>
+                <entry key="INFO"
+                       value-ref="consoleEventLogger"/>
+                <entry key="ERROR"
+                       value-ref="combinedEventLogger"/>
+            </map>
+        </constructor-arg>
     </bean>
 
     <bean id="event"
-            class="wo_spring_realization.Event"
+            class="wo_spring_realization.event.Event"
             scope="prototype">
         <constructor-arg>
             <bean class="java.util.Date"/>
@@ -38,5 +47,24 @@
           destroy-method="destroy">
         <constructor-arg value="log.txt"/>
         <constructor-arg value="3"/>
+    </bean>
+
+    <bean id="fileEventLogger"
+          class="wo_spring_realization.loggers.FileEventLogger"
+          init-method="init">
+        <constructor-arg value="log.txt"/>
+    </bean>
+
+    <bean id="combinedEventLogger"
+          class="wo_spring_realization.loggers.CombinedEventLogger">
+        <constructor-arg>
+                <list>
+                    <ref bean="consoleEventLogger"/>
+                    <ref bean="fileEventLogger"/>
+                </list>
+        </constructor-arg>
+    </bean>
+    <bean id="consoleEventLogger"
+          class="wo_spring_realization.loggers.ConsoleEventLogger">
     </bean>
 </beans>

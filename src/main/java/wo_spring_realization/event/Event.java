@@ -1,4 +1,4 @@
-package wo_spring_realization;
+package wo_spring_realization.event;
 
 import java.text.DateFormat;
 import java.util.Date;

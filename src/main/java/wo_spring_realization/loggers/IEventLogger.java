@@ -1,6 +1,6 @@
 package wo_spring_realization.loggers;
 
-import wo_spring_realization.Event;
+import wo_spring_realization.event.Event;
 
 
 /**

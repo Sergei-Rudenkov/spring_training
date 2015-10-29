@@ -1,9 +1,7 @@
 package wo_spring_realization.loggers;
 
-import org.apache.commons.io.FileUtils;
-import wo_spring_realization.Event;
+import wo_spring_realization.event.Event;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
