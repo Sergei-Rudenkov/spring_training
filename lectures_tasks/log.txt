@@ -1,0 +1,2 @@
+
+Event{id=5171641647827785457, msg='Some event for user John Smith', date=Thu Mar 24 16:52:28 MSK 2016}Event{id=8399850558087469116, msg='Some event 52 for user John Smith', date=Thu Mar 24 16:52:28 MSK 2016}
