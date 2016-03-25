@@ -14,8 +14,15 @@ public class DataClass {
     public static Set<Event> events;
     public static Set<User> users;
 
+    public void setAudiences(Set<Auditorium> audiences) {
+        DataClass.audiences = audiences;
+    }
 
+    public void setEvents(Set<Event> events) {
+        DataClass.events = events;
+    }
 
-
-
+    public void setUsers(Set<User> users) {
+        DataClass.users = users;
+    }
 }

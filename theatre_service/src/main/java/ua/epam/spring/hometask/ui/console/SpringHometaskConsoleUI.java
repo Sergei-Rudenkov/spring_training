@@ -65,14 +65,14 @@ public class SpringHometaskConsoleUI {
 
 
 
-        Ticket ticket1 = (Ticket) context.getBean("ticket_1");
-        bookingService.bookTickets(Collections.singleton(ticket1));
-        userService.save(ticket1.getUser());
-        eventService.save(ticket1.getEvent());
-
-        Ticket ticket2 = (Ticket) context.getBean("ticket_2");
-        bookingService.bookTickets(Collections.singleton(ticket2));
-        userService.save(ticket2.getUser());
-        eventService.save(ticket2.getEvent());
+//        Ticket ticket1 = (Ticket) context.getBean("ticket_1");
+//        bookingService.bookTickets(Collections.singleton(ticket1));
+//        userService.save(ticket1.getUser());
+//        eventService.save(ticket1.getEvent());
+//
+//        Ticket ticket2 = (Ticket) context.getBean("ticket_2");
+//        bookingService.bookTickets(Collections.singleton(ticket2));
+//        userService.save(ticket2.getUser());
+//        eventService.save(ticket2.getEvent());
     }
 }

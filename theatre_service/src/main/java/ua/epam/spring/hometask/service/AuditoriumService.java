@@ -15,7 +15,7 @@ public class AuditoriumService implements IAuditoriumService {
     @Nonnull
     @Override
     public Set<Auditorium> getAll() {
-        return DataClass.getAudiences();
+        return DataClass.audiences;
     }
 
     @Nullable

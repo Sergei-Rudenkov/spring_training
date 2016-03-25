@@ -1,5 +1,6 @@
 package ua.epam.spring.hometask.service;
 
+import ua.epam.spring.hometask.dao.DataClass;
 import ua.epam.spring.hometask.domain.User;
 
 import javax.annotation.Nonnull;
@@ -12,34 +13,32 @@ import java.util.List;
  * Created by sergei_rudenkov on 25.3.16.
  */
 public class UserService implements IUserService {
-    List users = new ArrayList<User>();
 
     @Nullable
     @Override
     public User getUserByEmail(@Nonnull String email) {
-        return null;
+        return DataClass.users.stream().filter(user -> user.getEmail().equals(email)).findFirst().get();
     }
 
     @Override
     public User save(@Nonnull User user) {
-        System.out.println("Not implemented yet");
-        System.out.println(user.getFirstName());
-        return null;
+        DataClass.users.add(user);
+        return user;
     }
 
     @Override
     public void remove(@Nonnull User user) {
-
+        DataClass.users.remove(user);
     }
 
     @Override
     public User getById(@Nonnull Long id) {
-        return null;
+        return DataClass.users.stream().filter(user -> user.getId().equals(id)).findFirst().get();
     }
 
     @Nonnull
     @Override
     public Collection<User> getAll() {
-        return null;
+        return DataClass.users;
     }
 }

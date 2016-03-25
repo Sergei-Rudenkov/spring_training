@@ -42,12 +42,14 @@
 
 
     <bean id="user_1" class="ua.epam.spring.hometask.domain.User">
+        <property name="id" value="1"/>
         <property name="email" value="my@email.com"/>
         <property name="firstName" value="Foo"/>
         <property name="lastName" value="Bar"/>
     </bean>
 
     <bean id="user_2" class="ua.epam.spring.hometask.domain.User">
+        <property name="id" value="2"/>
         <property name="email" value="somebody@a.b"/>
         <property name="firstName" value="A"/>
         <property name="lastName" value="Somebody"/>
@@ -72,6 +74,7 @@
     </bean>
 
     <bean id="event_1" class="ua.epam.spring.hometask.domain.Event">
+        <property name="id" value="1"/>
         <property name="name" value="Grand concert"/>
         <property name="rating" value="MID"/>
         <property name="basePrice" value="10"/>
