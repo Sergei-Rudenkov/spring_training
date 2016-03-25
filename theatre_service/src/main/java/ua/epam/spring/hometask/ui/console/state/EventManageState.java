@@ -6,6 +6,8 @@ import org.springframework.context.ApplicationContext;
 
 import ua.epam.spring.hometask.domain.Event;
 import ua.epam.spring.hometask.domain.EventRating;
+import ua.epam.spring.hometask.service.AuditoriumService;
+import ua.epam.spring.hometask.service.EventService;
 import ua.epam.spring.hometask.service.IAuditoriumService;
 import ua.epam.spring.hometask.service.IEventService;
 
@@ -19,8 +21,8 @@ public class EventManageState extends AbstractDomainObjectManageState<Event, IEv
     private IAuditoriumService auditoriumService;
 
     public EventManageState(ApplicationContext context) {
-        super(context.getBean(IEventService.class));
-        this.auditoriumService = context.getBean(IAuditoriumService.class);
+        super(context.getBean(EventService.class));
+        this.auditoriumService = context.getBean(AuditoriumService.class);
     }
 
     @Override

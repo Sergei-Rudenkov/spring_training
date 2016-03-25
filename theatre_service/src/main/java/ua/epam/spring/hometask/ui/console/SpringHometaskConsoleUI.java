@@ -12,10 +12,7 @@ import ua.epam.spring.hometask.domain.Event;
 import ua.epam.spring.hometask.domain.EventRating;
 import ua.epam.spring.hometask.domain.Ticket;
 import ua.epam.spring.hometask.domain.User;
-import ua.epam.spring.hometask.service.IAuditoriumService;
-import ua.epam.spring.hometask.service.IBookingService;
-import ua.epam.spring.hometask.service.IEventService;
-import ua.epam.spring.hometask.service.IUserService;
+import ua.epam.spring.hometask.service.*;
 import ua.epam.spring.hometask.ui.console.state.MainState;
 
 /**
@@ -37,9 +34,7 @@ public class SpringHometaskConsoleUI {
     }
 
     private void initContext() {
-        ConfigurableApplicationContext ctx = new ClassPathXmlApplicationContext("spring_config.xml");
-        Event event = (Event) ctx.getBean("test_event");
-        System.out.println(event.getName());
+        context = new ClassPathXmlApplicationContext("spring_config.xml");
     }
 
     private void run() {
@@ -55,45 +50,29 @@ public class SpringHometaskConsoleUI {
     }
 
     private void fillInitialData() {
-        IUserService userService = context.getBean(IUserService.class);
-        IEventService eventService = context.getBean(IEventService.class);
-        IAuditoriumService auditoriumService = context.getBean(IAuditoriumService.class);
-        IBookingService bookingService = context.getBean(IBookingService.class);
+        IUserService userService = context.getBean(UserService.class);
+        IEventService eventService = context.getBean(EventService.class);
+        IAuditoriumService auditoriumService = context.getBean(AuditoriumService.class);
+        IBookingService bookingService = context.getBean(BookingService.class);
         
-        Auditorium auditorium = auditoriumService.getAll().iterator().next();
-        if (auditorium == null) {
-            throw new IllegalStateException("Failed to fill initial data - no auditoriums returned from AuditoriumService");
-        }
-        if (auditorium.getNumberOfSeats() <= 0) {
-            throw new IllegalStateException("Failed to fill initial data - no seats in the auditorium " + auditorium.getName());
-        }
-        
-        User user = new User();
-        user.setEmail("my@email.com");
-        user.setFirstName("Foo");
-        user.setLastName("Bar");
-        
-        user = userService.save(user);
-        
-        Event event = new Event();
-        event.setName("Grand concert");
-        event.setRating(EventRating.MID);
-        event.setBasePrice(10);
-        LocalDateTime airDate = LocalDateTime.of(2020, 6, 15, 19, 30);
-        event.addAirDateTime(airDate, auditorium);
-        
-        event = eventService.save(event);
-        
-        Ticket ticket1 = new Ticket(user, event, airDate, 1);
+//        Auditorium auditorium = auditoriumService.getAll().iterator().next();
+//        if (auditorium == null) {
+//            throw new IllegalStateException("Failed to fill initial data - no auditoriums returned from AuditoriumService");
+//        }
+//        if (auditorium.getNumberOfSeats() <= 0) {
+//            throw new IllegalStateException("Failed to fill initial data - no seats in the auditorium " + auditorium.getName());
+//        }
+
+
+
+        Ticket ticket1 = (Ticket) context.getBean("ticket_1");
         bookingService.bookTickets(Collections.singleton(ticket1));
-        
-        if (auditorium.getNumberOfSeats() > 1) {
-            User userNotRegistered = new User();
-            userNotRegistered.setEmail("somebody@a.b");
-            userNotRegistered.setFirstName("A");
-            userNotRegistered.setLastName("Somebody");
-            Ticket ticket2 = new Ticket(userNotRegistered, event, airDate, 2);
-            bookingService.bookTickets(Collections.singleton(ticket2));
-        }
+        userService.save(ticket1.getUser());
+        eventService.save(ticket1.getEvent());
+
+        Ticket ticket2 = (Ticket) context.getBean("ticket_2");
+        bookingService.bookTickets(Collections.singleton(ticket2));
+        userService.save(ticket2.getUser());
+        eventService.save(ticket2.getEvent());
     }
 }

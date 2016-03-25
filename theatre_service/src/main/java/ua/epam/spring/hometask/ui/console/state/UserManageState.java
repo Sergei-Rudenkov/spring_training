@@ -6,6 +6,7 @@ import org.springframework.context.ApplicationContext;
 
 import ua.epam.spring.hometask.domain.User;
 import ua.epam.spring.hometask.service.IUserService;
+import ua.epam.spring.hometask.service.UserService;
 
 /**
  * State for managing users
@@ -15,7 +16,7 @@ import ua.epam.spring.hometask.service.IUserService;
 public class UserManageState extends AbstractDomainObjectManageState<User, IUserService> {
 
     public UserManageState(ApplicationContext context) {
-        super(context.getBean(IUserService.class));
+        super(context.getBean(UserService.class));
     }
 
     @Override

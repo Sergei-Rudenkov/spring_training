@@ -1,16 +1,132 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="
- 		http://www.springframework.org/schema/beans
- 		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
-
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+ 		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
     <bean
-            id="test_event"
-            class="ua.epam.spring.hometask.domain.Event">
+            name="first_event_dateTime"
+            class="java.time.LocalDateTime"
+            factory-method="of">
+        <constructor-arg type="int" value="2020"/>
+        <constructor-arg type="int" value="6"/>
+        <constructor-arg type="int" value="15"/>
+        <constructor-arg type="int" value="19"/>
+        <constructor-arg type="int" value="30"/>
+    </bean>
 
-            <property name="name" value="Zahid"/>
+    <bean
+            id="auditorium_service"
+            class="ua.epam.spring.hometask.service.AuditoriumService">
+    </bean>
+
+    <bean
+            id="booking_service"
+            class="ua.epam.spring.hometask.service.BookingService">
+    </bean>
+
+    <bean
+            id="discount_service"
+            class="ua.epam.spring.hometask.service.DiscountService">
+    </bean>
+
+    <bean
+            id="event_service"
+            class="ua.epam.spring.hometask.service.EventService">
+    </bean>
+
+    <bean
+            id="user_service"
+            class="ua.epam.spring.hometask.service.UserService">
+    </bean>
+
+
+    <bean id="user_1" class="ua.epam.spring.hometask.domain.User">
+        <property name="email" value="my@email.com"/>
+        <property name="firstName" value="Foo"/>
+        <property name="lastName" value="Bar"/>
+    </bean>
+
+    <bean id="user_2" class="ua.epam.spring.hometask.domain.User">
+        <property name="email" value="somebody@a.b"/>
+        <property name="firstName" value="A"/>
+        <property name="lastName" value="Somebody"/>
+    </bean>
+
+    <bean id="auditorium_1" class="ua.epam.spring.hometask.domain.Auditorium">
+        <property name="name" value="Big hall"/>
+        <property name="numberOfSeats" value="450"/>
+        <property name="vipSeats" value="15"/>
+    </bean>
+
+    <bean id="auditorium_2" class="ua.epam.spring.hometask.domain.Auditorium">
+        <property name="name" value="Exhibition hall"/>
+        <property name="numberOfSeats" value="50"/>
+        <property name="vipSeats" value="0"/>
+    </bean>
+
+    <bean id="auditorium_3" class="ua.epam.spring.hometask.domain.Auditorium">
+        <property name="name" value="Small hall"/>
+        <property name="numberOfSeats" value="150"/>
+        <property name="vipSeats" value="0"/>
+    </bean>
+
+    <bean id="event_1" class="ua.epam.spring.hometask.domain.Event">
+        <property name="name" value="Grand concert"/>
+        <property name="rating" value="MID"/>
+        <property name="basePrice" value="10"/>
+        <property name="airDates">
+            <util:set set-class="java.util.TreeSet">
+                <ref bean="first_event_dateTime"/>
+            </util:set>
+        </property>
+        <property name="auditoriums">
+            <util:map map-class="java.util.TreeMap">
+                <entry key-ref="first_event_dateTime" value-ref="auditorium_1" />
+            </util:map>
+
+        </property>
+    </bean>
+
+    <bean id="a" class="ua.epam.spring.hometask.dao.DataClass">
+        <property name="audiences">
+            <set>
+                <ref bean="auditorium_1"/>
+                <ref bean="auditorium_2"/>
+                <ref bean="auditorium_3"/>
+            </set>
+        </property>
+
+        <property name="users">
+            <set>
+                <ref bean="user_1"/>
+                <ref bean="user_2"/>
+            </set>
+        </property>
+
+        <property name="events">
+            <set>
+                <ref bean="event_1"/>
+            </set>
+        </property>
+    </bean>
+
+    <bean
+            id="ticket_1"
+            class="ua.epam.spring.hometask.domain.Ticket">
+        <constructor-arg index="0" ref="user_1"/>
+        <constructor-arg index="1" ref="event_1"/>
+        <constructor-arg index="2" ref="first_event_dateTime"/>
+        <constructor-arg index="3" type="long" value="1"/>
+    </bean>
+
+    <bean
+            id="ticket_2"
+            class="ua.epam.spring.hometask.domain.Ticket">
+        <constructor-arg index="0" ref="user_2"/>
+        <constructor-arg index="1" ref="event_1"/>
+        <constructor-arg index="2" ref="first_event_dateTime"/>
+        <constructor-arg index="3" type="long" value="2"/>
     </bean>
 
 </beans>
