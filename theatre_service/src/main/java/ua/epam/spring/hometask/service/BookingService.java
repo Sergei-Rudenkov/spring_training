@@ -9,6 +9,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.NavigableSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -23,7 +24,11 @@ public class BookingService implements IBookingService {
 
     @Override
     public void bookTickets(@Nonnull Set<Ticket> tickets) {
-
+        for(Ticket ticket : tickets){
+            NavigableSet<Ticket> targetedUserTickets = ticket.getUser().getTickets();
+            targetedUserTickets.add(ticket);
+            ticket.getUser().setTickets(targetedUserTickets);
+        }
     }
 
     @Nonnull

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
- 		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+ 		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
     <bean
             name="first_event_dateTime"
@@ -14,6 +16,8 @@
         <constructor-arg type="int" value="19"/>
         <constructor-arg type="int" value="30"/>
     </bean>
+
+
 
     <bean
             id="auditorium_service"
@@ -28,6 +32,12 @@
     <bean
             id="discount_service"
             class="ua.epam.spring.hometask.service.DiscountService">
+            <constructor-arg name="discountStrategies">
+                <list>
+                    <bean class="ua.epam.spring.hometask.strategy.TenthTicketStrategy"/>
+                    <bean class="ua.epam.spring.hometask.strategy.BirthdayStrategy"/>
+                </list>
+            </constructor-arg>
     </bean>
 
     <bean
@@ -46,6 +56,18 @@
         <property name="email" value="my@email.com"/>
         <property name="firstName" value="Foo"/>
         <property name="lastName" value="Bar"/>
+            <util:set set-class="java.util.TreeSet">
+                <ref bean="ticket_1"/>
+            </util:set>
+        <property name="birthday">
+            <bean
+                class="java.time.LocalDate"
+                factory-method="of">
+                <constructor-arg type="int" value="1992"/>
+                <constructor-arg type="int" value="9"/>
+                <constructor-arg type="int" value="25"/>
+            </bean>
+        </property>
     </bean>
 
     <bean id="user_2" class="ua.epam.spring.hometask.domain.User">
@@ -53,6 +75,18 @@
         <property name="email" value="somebody@a.b"/>
         <property name="firstName" value="A"/>
         <property name="lastName" value="Somebody"/>
+            <util:set set-class="java.util.TreeSet">
+                <ref bean="ticket_2"/>
+            </util:set>
+        <property name="birthday">
+            <bean
+                    class="java.time.LocalDate"
+                    factory-method="of">
+                <constructor-arg type="int" value="1956"/>
+                <constructor-arg type="int" value="4"/>
+                <constructor-arg type="int" value="3"/>
+            </bean>
+        </property>
     </bean>
 
     <bean id="auditorium_1" class="ua.epam.spring.hometask.domain.Auditorium">
