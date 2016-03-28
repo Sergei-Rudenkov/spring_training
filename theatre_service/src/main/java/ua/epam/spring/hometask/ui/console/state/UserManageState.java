@@ -62,16 +62,17 @@ public class UserManageState extends AbstractDomainObjectManageState<User, IUser
     @Override
     protected User createObject() {
         System.out.println("Adding user");
+        long id = readIntInput("Id: ");
         String firstName = readStringInput("First name: ");
         String lastName = readStringInput("Last name: ");
         String email = readStringInput("E-mail: ");
 
         User user = new User();
+        user.setId(id);
         user.setEmail(email);
         user.setFirstName(firstName);
         user.setLastName(lastName);
 
         return user;
     }
-
 }

@@ -21,6 +21,6 @@ public class AuditoriumService implements IAuditoriumService {
     @Nullable
     @Override
     public Auditorium getByName(@Nonnull String name) {
-        return null;
+        return DataClass.audiences.stream().filter(auditorium -> auditorium.getName().equals(name)).findFirst().get();
     }
 }

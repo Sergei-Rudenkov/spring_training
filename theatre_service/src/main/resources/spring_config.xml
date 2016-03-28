@@ -27,11 +27,13 @@
     <bean
             id="booking_service"
             class="ua.epam.spring.hometask.service.BookingService">
+        <property name="discountService" ref="discount_service"/>
     </bean>
 
     <bean
             id="discount_service"
             class="ua.epam.spring.hometask.service.DiscountService">
+
             <constructor-arg name="discountStrategies">
                 <list>
                     <bean class="ua.epam.spring.hometask.strategy.TenthTicketStrategy"/>
@@ -50,15 +52,16 @@
             class="ua.epam.spring.hometask.service.UserService">
     </bean>
 
-
     <bean id="user_1" class="ua.epam.spring.hometask.domain.User">
         <property name="id" value="1"/>
         <property name="email" value="my@email.com"/>
         <property name="firstName" value="Foo"/>
         <property name="lastName" value="Bar"/>
+        <property name="tickets">
             <util:set set-class="java.util.TreeSet">
                 <ref bean="ticket_1"/>
             </util:set>
+        </property>
         <property name="birthday">
             <bean
                 class="java.time.LocalDate"
@@ -75,9 +78,11 @@
         <property name="email" value="somebody@a.b"/>
         <property name="firstName" value="A"/>
         <property name="lastName" value="Somebody"/>
+        <property name="tickets">
             <util:set set-class="java.util.TreeSet">
                 <ref bean="ticket_2"/>
             </util:set>
+        </property>
         <property name="birthday">
             <bean
                     class="java.time.LocalDate"
@@ -121,7 +126,6 @@
             <util:map map-class="java.util.TreeMap">
                 <entry key-ref="first_event_dateTime" value-ref="auditorium_1" />
             </util:map>
-
         </property>
     </bean>
 

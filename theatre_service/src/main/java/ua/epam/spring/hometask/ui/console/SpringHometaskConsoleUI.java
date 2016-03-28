@@ -39,40 +39,11 @@ public class SpringHometaskConsoleUI {
 
     private void run() {
         System.out.println("Welcome to movie theater console service");
-        
-        fillInitialData();
 
         MainState state = new MainState(context);
 
         state.run();
 
         System.out.println("Exiting.. Thank you.");
-    }
-
-    private void fillInitialData() {
-        IUserService userService = context.getBean(UserService.class);
-        IEventService eventService = context.getBean(EventService.class);
-        IAuditoriumService auditoriumService = context.getBean(AuditoriumService.class);
-        IBookingService bookingService = context.getBean(BookingService.class);
-        
-//        Auditorium auditorium = auditoriumService.getAll().iterator().next();
-//        if (auditorium == null) {
-//            throw new IllegalStateException("Failed to fill initial data - no auditoriums returned from AuditoriumService");
-//        }
-//        if (auditorium.getNumberOfSeats() <= 0) {
-//            throw new IllegalStateException("Failed to fill initial data - no seats in the auditorium " + auditorium.getName());
-//        }
-
-
-
-//        Ticket ticket1 = (Ticket) context.getBean("ticket_1");
-//        bookingService.bookTickets(Collections.singleton(ticket1));
-//        userService.save(ticket1.getUser());
-//        eventService.save(ticket1.getEvent());
-//
-//        Ticket ticket2 = (Ticket) context.getBean("ticket_2");
-//        bookingService.bookTickets(Collections.singleton(ticket2));
-//        userService.save(ticket2.getUser());
-//        eventService.save(ticket2.getEvent());
     }
 }

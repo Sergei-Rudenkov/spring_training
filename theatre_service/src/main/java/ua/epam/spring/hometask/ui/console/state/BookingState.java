@@ -107,9 +107,8 @@ public class BookingState extends AbstractState {
         }
         
         Set<Ticket> ticketsToBook = seats.stream().map(seat -> new Ticket(userForBooking, event, airDate, seat)).collect(Collectors.toSet());
-        bookingService.bookTickets(ticketsToBook);
         double price = bookingService.getTicketsPrice(event, airDate, user, seats);
-        
+        bookingService.bookTickets(ticketsToBook);
         System.out.println("Tickets booked! Total price: " + price);
     }
 

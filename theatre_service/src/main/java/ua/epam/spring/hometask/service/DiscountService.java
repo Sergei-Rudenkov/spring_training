@@ -8,6 +8,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -22,11 +23,11 @@ public class DiscountService implements IDiscountService {
     }
 
     @Override
-    public byte getDiscount(@Nullable User user, @Nonnull Event event, @Nonnull LocalDateTime airDateTime, long numberOfTickets) {
-        List<Byte> discountPercentage = new ArrayList<>();
+    public double getDiscount(@Nullable User user, @Nonnull Event event, @Nonnull LocalDateTime airDateTime, long numberOfTickets) {
+        List<Double> discountPercentage = new ArrayList<>();
         for(DiscountStrategy strategy : discountStrategies){
-            discountPercentage.add(strategy.checkDiscount(airDateTime.toLocalDate(), user));
+            discountPercentage.add(strategy.checkDiscount(airDateTime.toLocalDate(), user, numberOfTickets));
         }
-        return discountPercentage.stream().max(Byte::compareTo).orElse((byte) 0);
+        return discountPercentage.stream().max(Double::compareTo).orElse(0.0) / numberOfTickets;
     }
 }

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <bean
+            id="user_service"
+            class="ua.epam.spring.hometask.service.UserService">
+    </bean>
+
+    <bean
+            name="first_event_dateTime"
+            class="java.time.LocalDateTime"
+            factory-method="of">
+        <constructor-arg type="int" value="2020"/>
+        <constructor-arg type="int" value="6"/>
+        <constructor-arg type="int" value="15"/>
+        <constructor-arg type="int" value="19"/>
+        <constructor-arg type="int" value="30"/>
+    </bean>
+
+    <bean
+            id="discount_service"
+            class="ua.epam.spring.hometask.service.DiscountService">
+
+        <constructor-arg name="discountStrategies">
+            <list>
+                <bean class="ua.epam.spring.hometask.strategy.TenthTicketStrategy"/>
+                <bean class="ua.epam.spring.hometask.strategy.BirthdayStrategy"/>
+            </list>
+        </constructor-arg>
+    </bean>
+
+    <bean id="test_user1" class="ua.epam.spring.hometask.domain.User">
+        <property name="id" value="1"/>
+        <property name="email" value="s@email.com"/>
+        <property name="firstName" value="S"/>
+        <property name="lastName" value="R"/>
+        <property name="birthday">
+            <bean
+                    class="java.time.LocalDate"
+                    factory-method="of">
+                <constructor-arg type="int" value="1992"/>
+                <constructor-arg type="int" value="6"/>
+                <constructor-arg type="int" value="12"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="a" class="ua.epam.spring.hometask.dao.DataClass">
+        <property name="audiences">
+            <set>
+            </set>
+        </property>
+
+        <property name="users">
+            <set>
+            </set>
+        </property>
+
+        <property name="events">
+            <set>
+            </set>
+        </property>
+    </bean>
+
+    <bean id="test_event1" class="ua.epam.spring.hometask.domain.Event">
+        <property name="id" value="1"/>
+        <property name="name" value="Grand concert"/>
+        <property name="rating" value="MID"/>
+        <property name="basePrice" value="10"/>
+        <property name="airDates">
+            <util:set set-class="java.util.TreeSet">
+                <ref bean="first_event_dateTime"/>
+            </util:set>
+        </property>
+    </bean>
+</beans>

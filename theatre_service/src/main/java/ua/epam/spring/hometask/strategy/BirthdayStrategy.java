@@ -10,8 +10,8 @@ import java.time.temporal.ChronoUnit;
  */
 public class BirthdayStrategy implements DiscountStrategy{
     @Override
-    public byte checkDiscount(LocalDate eventDate, User user){
-        if(ChronoUnit.DAYS.between(eventDate, user.getBirthday()) <= 5){
+    public double checkDiscount(LocalDate eventDate, User user, long numberOfTickets){
+        if(Math.abs(ChronoUnit.DAYS.between(user.getBirthday().minusYears(user.getBirthday().getYear()), eventDate.minusYears(eventDate.getYear()))) <= 5){
             return 5;
         }
         return 0;

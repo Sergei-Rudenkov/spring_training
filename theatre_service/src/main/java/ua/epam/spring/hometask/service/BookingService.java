@@ -17,9 +17,21 @@ import java.util.stream.Collectors;
  * Created by sergei_rudenkov on 25.3.16.
  */
 public class BookingService implements IBookingService {
+    private DiscountService discountService;
+
     @Override
     public double getTicketsPrice(@Nonnull Event event, @Nonnull LocalDateTime dateTime, @Nullable User user, @Nonnull Set<Long> seats) {
-        return 0;
+        double basePrice = event.getBasePrice();
+        double discount = discountService.getDiscount(user, event, dateTime, seats.size());
+        double priceAllowance = 1.0;
+        switch (event.getRating()) {
+            case LOW:
+                priceAllowance = 0.8;
+                break;
+            case HIGH:
+                priceAllowance = 1.5;
+        }
+        return basePrice * priceAllowance * (1 + (discount / 100)) * seats.size();
     }
 
     @Override
@@ -39,5 +51,9 @@ public class BookingService implements IBookingService {
             allTickets.addAll(user.getTickets());
         }
         return allTickets.stream().filter(ticket -> ticket.getDateTime().equals(dateTime) & ticket.getEvent().equals(event)).collect(Collectors.toSet());
+    }
+
+    public void setDiscountService(DiscountService discountService) {
+        this.discountService = discountService;
     }
 }
