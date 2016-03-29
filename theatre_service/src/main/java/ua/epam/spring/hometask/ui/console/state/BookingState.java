@@ -8,6 +8,7 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 
 import ua.epam.spring.hometask.domain.Auditorium;
@@ -22,8 +23,11 @@ import ua.epam.spring.hometask.service.IUserService;
 
 public class BookingState extends AbstractState {
 
+    @Autowired
     private final IBookingService bookingService;
+    @Autowired
     private final IUserService userService;
+    @Autowired
     private final IEventService eventService;
 
     public BookingState(ApplicationContext context) {

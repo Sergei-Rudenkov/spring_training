@@ -17,8 +17,6 @@
         <constructor-arg type="int" value="30"/>
     </bean>
 
-
-
     <bean
             id="auditorium_service"
             class="ua.epam.spring.hometask.service.AuditoriumService">
@@ -34,12 +32,12 @@
             id="discount_service"
             class="ua.epam.spring.hometask.service.DiscountService">
 
-            <constructor-arg name="discountStrategies">
+            <property name="discountStrategies">
                 <list>
                     <bean class="ua.epam.spring.hometask.strategy.TenthTicketStrategy"/>
                     <bean class="ua.epam.spring.hometask.strategy.BirthdayStrategy"/>
                 </list>
-            </constructor-arg>
+            </property>
     </bean>
 
     <bean

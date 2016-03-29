@@ -2,6 +2,7 @@ package ua.epam.spring.hometask.ui.console.state;
 
 import java.util.Set;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 
 import ua.epam.spring.hometask.domain.Auditorium;
@@ -13,7 +14,8 @@ import ua.epam.spring.hometask.service.IAuditoriumService;
  * @author Yuriy_Tkach
  */
 public class AuditoriumManageState extends AbstractState {
-    
+
+    @Autowired
     private IAuditoriumService auditoriumService;
 
     public AuditoriumManageState(ApplicationContext context) {

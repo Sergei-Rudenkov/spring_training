@@ -1,5 +1,7 @@
 package ua.epam.spring.hometask.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ua.epam.spring.hometask.dao.DataClass;
 import ua.epam.spring.hometask.domain.Event;
 import ua.epam.spring.hometask.domain.Ticket;
@@ -16,8 +18,10 @@ import java.util.stream.Collectors;
 /**
  * Created by sergei_rudenkov on 25.3.16.
  */
+@Service
 public class BookingService implements IBookingService {
-    private DiscountService discountService;
+    @Autowired
+    private IDiscountService discountService;
 
     @Override
     public double getTicketsPrice(@Nonnull Event event, @Nonnull LocalDateTime dateTime, @Nullable User user, @Nonnull Set<Long> seats) {

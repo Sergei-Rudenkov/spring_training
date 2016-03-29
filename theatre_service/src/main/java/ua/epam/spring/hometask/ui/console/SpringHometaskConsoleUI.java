@@ -1,18 +1,10 @@
 package ua.epam.spring.hometask.ui.console;
 
-import java.time.LocalDateTime;
-import java.util.Collections;
-
 import org.springframework.context.ApplicationContext;
 
-import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import ua.epam.spring.hometask.domain.Auditorium;
-import ua.epam.spring.hometask.domain.Event;
-import ua.epam.spring.hometask.domain.EventRating;
-import ua.epam.spring.hometask.domain.Ticket;
-import ua.epam.spring.hometask.domain.User;
-import ua.epam.spring.hometask.service.*;
+import ua.epam.spring.hometask.bean.SpringConfiguration;
 import ua.epam.spring.hometask.ui.console.state.MainState;
 
 /**
@@ -34,7 +26,8 @@ public class SpringHometaskConsoleUI {
     }
 
     private void initContext() {
-        context = new ClassPathXmlApplicationContext("spring_config.xml");
+        //context = new ClassPathXmlApplicationContext("spring_config.xml");
+        context = new AnnotationConfigApplicationContext(SpringConfiguration.class);
     }
 
     private void run() {
