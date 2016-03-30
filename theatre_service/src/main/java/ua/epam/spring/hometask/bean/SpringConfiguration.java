@@ -6,13 +6,17 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import ua.epam.spring.hometask.aspect.CounterAspect;
 import ua.epam.spring.hometask.aspect.DiscountAspect;
 import ua.epam.spring.hometask.aspect.LuckyWinnerAspect;
-import ua.epam.spring.hometask.dao.DataClass;
+import ua.epam.spring.hometask.dao.AuditoriumDao;
+import ua.epam.spring.hometask.dao.EventDao;
+import ua.epam.spring.hometask.dao.TicketDao;
+import ua.epam.spring.hometask.dao.UserDao;
 import ua.epam.spring.hometask.domain.*;
 import ua.epam.spring.hometask.service.*;
 import ua.epam.spring.hometask.strategy.BirthdayStrategy;
 import ua.epam.spring.hometask.strategy.DiscountStrategy;
 import ua.epam.spring.hometask.strategy.TenthTicketStrategy;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -138,22 +142,34 @@ public class SpringConfiguration {
         return event;
     }
 
-    @Bean(name = "dataClass")
-    public DataClass getData(){
-        DataClass data = new DataClass();
-        data.setAudiences(new HashSet<Auditorium>(){{
-           add(getFirstAuditorium());
-           add(getSecondAuditorium());
-           add(getThirdAuditorium());
-        }});
-        data.setEvents(new HashSet<Event>(){{
-            add(getEvent());
-        }});
-        data.setUsers(new HashSet<User>(){{
-            add(getFirstUser());
-            add(getSecondUser());
-        }});
-        return data;
+    @Bean(name = "ticketDao")
+    public TicketDao getTicketDao(){
+        TicketDao ticketDao = new TicketDao();
+        ticketDao.put(getFirstTicket());
+        ticketDao.put(getSecondTicket());
+        return ticketDao;
+    }
+
+    @Bean(name = "eventDao")
+    public EventDao getEventDao(){
+        EventDao eventDao = new EventDao();
+        eventDao.put(getEvent());
+        return eventDao;
+    }
+
+    @Bean(name = "userDao")
+    public UserDao getUserDao(){
+        UserDao userDao = new UserDao();
+        userDao.put(getFirstUser());
+        userDao.put(getSecondUser());
+        return userDao;
+    }
+
+    @Bean(name = "auditoriumDao")
+    public AuditoriumDao getAuditoriumDao() throws IOException {
+        AuditoriumDao auditoriumDao = new AuditoriumDao();
+        auditoriumDao.init();
+        return auditoriumDao;
     }
 
     @Bean(name = "ticket1")

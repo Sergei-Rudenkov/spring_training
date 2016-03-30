@@ -1,6 +1,8 @@
 package ua.epam.spring.hometask.service;
 
-import ua.epam.spring.hometask.dao.DataClass;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import ua.epam.spring.hometask.dao.AuditoriumDao;
 import ua.epam.spring.hometask.domain.Auditorium;
 
 import javax.annotation.Nonnull;
@@ -10,17 +12,21 @@ import java.util.Set;
 /**
  * Created by sergei_rudenkov on 25.3.16.
  */
+@Service
 public class AuditoriumService implements IAuditoriumService {
+
+    @Autowired
+    AuditoriumDao auditoriumDao;
 
     @Nonnull
     @Override
     public Set<Auditorium> getAll() {
-        return DataClass.audiences;
+        return auditoriumDao.getAll();
     }
 
     @Nullable
     @Override
     public Auditorium getByName(@Nonnull String name) {
-        return DataClass.audiences.stream().filter(auditorium -> auditorium.getName().equals(name)).findFirst().get();
+        return auditoriumDao.getAll().stream().filter(auditorium -> auditorium.getName().equals(name)).findFirst().get();
     }
 }
