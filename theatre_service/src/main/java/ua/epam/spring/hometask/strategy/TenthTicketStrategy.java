@@ -10,12 +10,12 @@ import java.time.LocalDate;
  */
 public class TenthTicketStrategy implements DiscountStrategy {
     @Override
-    public double checkDiscount(LocalDate date, User user, long numberOfTickets) {
-        double discount = 0;
-        int ticketsBeforeDiscount = (int) ((user.getTickets().size() % 10) + numberOfTickets);
-        if (ticketsBeforeDiscount >= 10) {
-            discount = 10;
-            return discount * (ticketsBeforeDiscount / 10);
+    public Double checkDiscount(LocalDate date, User user, long numberOfTickets) {
+        Double discount = 0.0;
+        int ticketsBeforeDiscount = (int) ((user.getTickets().size() % 10.0) + numberOfTickets);
+        if (ticketsBeforeDiscount >= 10.0) {
+            discount = 10.0;
+            return discount * (ticketsBeforeDiscount / 10.0);
         }
         return discount;
     }

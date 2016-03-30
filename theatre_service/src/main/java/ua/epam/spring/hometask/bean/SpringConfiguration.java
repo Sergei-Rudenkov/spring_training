@@ -4,6 +4,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import ua.epam.spring.hometask.aspect.CounterAspect;
+import ua.epam.spring.hometask.aspect.DiscountAspect;
+import ua.epam.spring.hometask.aspect.LuckyWinnerAspect;
 import ua.epam.spring.hometask.dao.DataClass;
 import ua.epam.spring.hometask.domain.*;
 import ua.epam.spring.hometask.service.*;
@@ -34,11 +36,21 @@ public class SpringConfiguration {
         return new AuditoriumService();
     }
 
+    @Bean(name = "birthdayStrategy")
+    public DiscountStrategy getBirthdayStrategy(){
+        return new BirthdayStrategy();
+    }
+
+    @Bean(name = "tenthTicketStrategy")
+    public DiscountStrategy getTenthTicketStrategy(){
+        return new TenthTicketStrategy();
+    }
+
     @Bean(name = "discountStrategies")
     public List<DiscountStrategy> getDiscountStrategies(){
         return new ArrayList<DiscountStrategy>(){{
-            add(new BirthdayStrategy());
-            add(new TenthTicketStrategy());
+            add(getBirthdayStrategy());
+            add(getTenthTicketStrategy());
         }};
     }
 
@@ -154,8 +166,18 @@ public class SpringConfiguration {
         return new Ticket(getSecondUser(), getEvent(), getEventDateTime(), 2L);
     }
 
-    @Bean(name = "aspect")
+    @Bean(name = "counterAspect")
     public CounterAspect getCounterAspect(){
         return new CounterAspect();
+    }
+
+    @Bean(name = "discountAspect")
+    public DiscountAspect getDiscountAspect(){
+        return new DiscountAspect();
+    }
+
+    @Bean(name = "luckyAspect")
+    public LuckyWinnerAspect getLuckyWinnerAspect(){
+        return new LuckyWinnerAspect();
     }
 }
