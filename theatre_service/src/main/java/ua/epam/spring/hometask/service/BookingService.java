@@ -1,6 +1,8 @@
 package ua.epam.spring.hometask.service;
 
-import ua.epam.spring.hometask.dao.DataClass;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import ua.epam.spring.hometask.dao.UserDao;
 import ua.epam.spring.hometask.domain.Event;
 import ua.epam.spring.hometask.domain.Ticket;
 import ua.epam.spring.hometask.domain.User;
@@ -16,8 +18,14 @@ import java.util.stream.Collectors;
 /**
  * Created by sergei_rudenkov on 25.3.16.
  */
+@Service
 public class BookingService implements IBookingService {
-    private DiscountService discountService;
+
+    @Autowired
+    UserDao userDao;
+
+    @Autowired
+    private IDiscountService discountService;
 
     @Override
     public double getTicketsPrice(@Nonnull Event event, @Nonnull LocalDateTime dateTime, @Nullable User user, @Nonnull Set<Long> seats) {
@@ -31,7 +39,7 @@ public class BookingService implements IBookingService {
             case HIGH:
                 priceAllowance = 1.5;
         }
-        return basePrice * priceAllowance * (1 + (discount / 100)) * seats.size();
+        return basePrice * priceAllowance * (1 - (discount / 100)) * seats.size();
     }
 
     @Override
@@ -47,7 +55,7 @@ public class BookingService implements IBookingService {
     @Override
     public Set<Ticket> getPurchasedTicketsForEvent(@Nonnull Event event, @Nonnull LocalDateTime dateTime) {
         Set<Ticket> allTickets = new HashSet<>();
-        for(User user : DataClass.users){
+        for(User user : userDao.getAll()){
             allTickets.addAll(user.getTickets());
         }
         return allTickets.stream().filter(ticket -> ticket.getDateTime().equals(dateTime) & ticket.getEvent().equals(event)).collect(Collectors.toSet());

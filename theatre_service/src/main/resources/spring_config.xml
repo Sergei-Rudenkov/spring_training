@@ -1,3 +1,4 @@
+<!-- This xml doesn't participate, kept for historical reasons
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -17,8 +18,6 @@
         <constructor-arg type="int" value="30"/>
     </bean>
 
-
-
     <bean
             id="auditorium_service"
             class="ua.epam.spring.hometask.service.AuditoriumService">
@@ -34,12 +33,12 @@
             id="discount_service"
             class="ua.epam.spring.hometask.service.DiscountService">
 
-            <constructor-arg name="discountStrategies">
+            <property name="discountStrategies">
                 <list>
                     <bean class="ua.epam.spring.hometask.strategy.TenthTicketStrategy"/>
                     <bean class="ua.epam.spring.hometask.strategy.BirthdayStrategy"/>
                 </list>
-            </constructor-arg>
+            </property>
     </bean>
 
     <bean
@@ -129,29 +128,6 @@
         </property>
     </bean>
 
-    <bean id="a" class="ua.epam.spring.hometask.dao.DataClass">
-        <property name="audiences">
-            <set>
-                <ref bean="auditorium_1"/>
-                <ref bean="auditorium_2"/>
-                <ref bean="auditorium_3"/>
-            </set>
-        </property>
-
-        <property name="users">
-            <set>
-                <ref bean="user_1"/>
-                <ref bean="user_2"/>
-            </set>
-        </property>
-
-        <property name="events">
-            <set>
-                <ref bean="event_1"/>
-            </set>
-        </property>
-    </bean>
-
     <bean
             id="ticket_1"
             class="ua.epam.spring.hometask.domain.Ticket">
@@ -171,3 +147,4 @@
     </bean>
 
 </beans>
+-->

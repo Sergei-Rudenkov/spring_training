@@ -2,19 +2,14 @@ package ua.epam.spring.hometask.ui.console.state;
 
 import java.time.LocalDateTime;
 import java.util.Locale;
-import java.util.NavigableSet;
-import java.util.TreeSet;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 
-import ua.epam.spring.hometask.dao.DataClass;
 import ua.epam.spring.hometask.domain.Auditorium;
 import ua.epam.spring.hometask.domain.Event;
 import ua.epam.spring.hometask.domain.EventRating;
-import ua.epam.spring.hometask.service.AuditoriumService;
-import ua.epam.spring.hometask.service.EventService;
 import ua.epam.spring.hometask.service.IAuditoriumService;
 import ua.epam.spring.hometask.service.IEventService;
 
@@ -25,11 +20,12 @@ import ua.epam.spring.hometask.service.IEventService;
  */
 public class EventManageState extends AbstractDomainObjectManageState<Event, IEventService> {
 
+    @Autowired
     private IAuditoriumService auditoriumService;
 
     public EventManageState(ApplicationContext context) {
-        super(context.getBean(EventService.class));
-        this.auditoriumService = context.getBean(AuditoriumService.class);
+        super(context.getBean(IEventService.class));
+        this.auditoriumService = context.getBean(IAuditoriumService.class);
     }
 
     @Override
