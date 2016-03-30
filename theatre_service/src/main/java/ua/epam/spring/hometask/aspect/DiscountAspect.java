@@ -12,7 +12,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by sergei_rudenkov on 29.3.16.
+ * Count how many times each discount was given total and for specific user
+ * @author Sergei_Rudenkov
  */
 @Aspect
 public class DiscountAspect {
@@ -26,9 +27,6 @@ public class DiscountAspect {
         userDiscountCounter.put(TenthTicketStrategy.class, new HashMap<>());
         userDiscountCounter.put(BirthdayStrategy.class, new HashMap<>());
     }
-
-
-
 
     @AfterReturning(
             pointcut = "execution(java.lang.Double *.checkDiscount(..))",

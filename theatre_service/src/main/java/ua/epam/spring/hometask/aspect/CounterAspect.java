@@ -10,7 +10,9 @@ import ua.epam.spring.hometask.domain.Ticket;
 import java.util.*;
 
 /**
- * Created by sergei_rudenkov on 29.3.16.
+ * Count how many times each event was accessed by name, how many times its prices were queried, <br/>
+ * how many times its tickets were booked. Store counters in map. <br/>
+ * @author Sergei_Rudenkov
  */
 @Aspect
 public class CounterAspect {

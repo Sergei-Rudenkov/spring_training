@@ -35,7 +35,7 @@ public class BookingService implements IBookingService {
             case HIGH:
                 priceAllowance = 1.5;
         }
-        return basePrice * priceAllowance * (1 + (discount / 100)) * seats.size();
+        return basePrice * priceAllowance * (1 - (discount / 100)) * seats.size();
     }
 
     @Override
