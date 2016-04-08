@@ -1,7 +1,8 @@
 package ua.epam.spring.hometask.ui.console.state;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import ua.epam.spring.hometask.domain.DomainObject;
-import ua.epam.spring.hometask.service.IAbstractDomainObjectService;
+import ua.epam.spring.hometask.service.service_interfaces.IAbstractDomainObjectService;
 
 /**
  * Abstract state that manages basic actions that are defined in

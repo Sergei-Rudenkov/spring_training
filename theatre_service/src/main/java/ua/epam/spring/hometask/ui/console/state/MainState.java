@@ -15,7 +15,7 @@ public class MainState extends AbstractState {
     private Map<Integer, AbstractState> childStates = new HashMap<>();
 
     public MainState(ApplicationContext context) {
-        childStates.put(1, new AuditoriumManageState(context));
+        childStates.put(1, new AuditoriumManageState());
         childStates.put(2, new EventManageState(context));
         childStates.put(3, new UserManageState(context));
         childStates.put(4, new BookingState(context));

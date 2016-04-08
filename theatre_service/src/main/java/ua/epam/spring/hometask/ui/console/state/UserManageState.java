@@ -4,8 +4,9 @@ import java.util.Locale;
 
 import org.springframework.context.ApplicationContext;
 
+import org.springframework.stereotype.Component;
 import ua.epam.spring.hometask.domain.User;
-import ua.epam.spring.hometask.service.IUserService;
+import ua.epam.spring.hometask.service.service_interfaces.IUserService;
 import ua.epam.spring.hometask.service.UserService;
 
 /**

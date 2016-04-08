@@ -1,4 +1,4 @@
-package ua.epam.spring.hometask.service;
+package ua.epam.spring.hometask.service.service_interfaces;
 
 import java.time.LocalDateTime;
 import java.util.List;

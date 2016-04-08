@@ -4,6 +4,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import ua.epam.spring.hometask.domain.Event;
 import ua.epam.spring.hometask.domain.User;
+import ua.epam.spring.hometask.service.service_interfaces.IDiscountService;
 
 import static org.junit.Assert.assertEquals;
 

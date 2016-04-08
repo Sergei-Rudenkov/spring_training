@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.epam.spring.hometask.dao.UserDao;
 import ua.epam.spring.hometask.domain.User;
+import ua.epam.spring.hometask.service.service_interfaces.IUserService;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -14,9 +15,8 @@ import java.util.Collection;
  */
 @Service
 public class UserService implements IUserService {
-
     @Autowired
-    UserDao userDao;
+    private UserDao userDao;
 
     @Nullable
     @Override
@@ -26,13 +26,13 @@ public class UserService implements IUserService {
 
     @Override
     public User save(@Nonnull User user) {
-        userDao.getAll().add(user);
+        userDao.put(user);
         return user;
     }
 
     @Override
     public void remove(@Nonnull User user) {
-        userDao.getAll().remove(user);
+        userDao.remove(user);
     }
 
     @Override

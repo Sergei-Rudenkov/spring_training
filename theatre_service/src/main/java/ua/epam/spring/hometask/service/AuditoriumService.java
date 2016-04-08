@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.epam.spring.hometask.dao.AuditoriumDao;
 import ua.epam.spring.hometask.domain.Auditorium;
+import ua.epam.spring.hometask.service.service_interfaces.IAuditoriumService;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

@@ -5,22 +5,20 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 
+import org.springframework.stereotype.Component;
 import ua.epam.spring.hometask.domain.Auditorium;
-import ua.epam.spring.hometask.service.IAuditoriumService;
+import ua.epam.spring.hometask.service.service_interfaces.IAuditoriumService;
 
 /**
  * State for managing auditoriums
  * 
  * @author Yuriy_Tkach
  */
+@Component
 public class AuditoriumManageState extends AbstractState {
 
     @Autowired
     private IAuditoriumService auditoriumService;
-
-    public AuditoriumManageState(ApplicationContext context) {
-        auditoriumService = context.getBean(IAuditoriumService.class);
-    }
 
     @Override
     protected int printMainActions() {

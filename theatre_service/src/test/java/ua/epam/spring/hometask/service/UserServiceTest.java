@@ -7,6 +7,7 @@ import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import ua.epam.spring.hometask.domain.User;
+import ua.epam.spring.hometask.service.service_interfaces.IUserService;
 
 import java.util.NoSuchElementException;
 

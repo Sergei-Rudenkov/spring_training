@@ -12,6 +12,8 @@ import java.util.stream.LongStream;
  */
 public class Auditorium {
 
+    private long id;
+
     private String name;
 
     private long numberOfSeats;
@@ -87,4 +89,11 @@ public class Auditorium {
         return true;
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 }

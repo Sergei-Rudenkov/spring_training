@@ -1,8 +1,11 @@
 package ua.epam.spring.hometask.bean;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import ua.epam.spring.hometask.aspect.CounterAspect;
 import ua.epam.spring.hometask.aspect.DiscountAspect;
 import ua.epam.spring.hometask.aspect.LuckyWinnerAspect;
@@ -12,10 +15,12 @@ import ua.epam.spring.hometask.dao.TicketDao;
 import ua.epam.spring.hometask.dao.UserDao;
 import ua.epam.spring.hometask.domain.*;
 import ua.epam.spring.hometask.service.*;
+import ua.epam.spring.hometask.service.service_interfaces.*;
 import ua.epam.spring.hometask.strategy.BirthdayStrategy;
 import ua.epam.spring.hometask.strategy.DiscountStrategy;
 import ua.epam.spring.hometask.strategy.TenthTicketStrategy;
 
+import javax.sql.DataSource;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -28,16 +33,29 @@ import java.util.stream.LongStream;
  */
 @Configuration
 @EnableAspectJAutoProxy
+@ComponentScan("ua.epam.spring.hometask")
 public class SpringConfiguration {
+
+    @Bean
+    public DataSource dataSource(){
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+
+        dataSource.setDriverClassName("org.postgresql.Driver");
+        dataSource.setUrl("jdbc:postgresql://localhost:5432/postgres?autoReconnect=true");
+        dataSource.setUsername("postgres");
+        dataSource.setPassword("postgres");
+
+        return dataSource;
+    }
+
+    @Bean
+    public JdbcTemplate jdbcTemplate() {
+        return new JdbcTemplate(dataSource());
+    }
 
     @Bean(name = "first_event_dateTime")
     public LocalDateTime getEventDateTime() {
         return LocalDateTime.of(2020, 6, 15, 19, 30);
-    }
-
-    @Bean(name = "auditoriumService")
-    public IAuditoriumService getAuditoriumService() {
-        return new AuditoriumService();
     }
 
     @Bean(name = "birthdayStrategy")
@@ -63,21 +81,6 @@ public class SpringConfiguration {
         IDiscountService discountService = new DiscountService();
         discountService.setDiscountStrategies(getDiscountStrategies());
         return discountService;
-    }
-
-    @Bean(name = "bookingService")
-    public IBookingService getBookingService() {
-        return new BookingService();
-    }
-
-    @Bean(name = "eventService")
-    public IEventService getEventService(){
-        return new EventService();
-    }
-
-    @Bean(name = "userService")
-    public IUserService getUserService(){
-        return new UserService();
     }
 
     @Bean(name = "user1")
@@ -157,21 +160,6 @@ public class SpringConfiguration {
         return eventDao;
     }
 
-    @Bean(name = "userDao")
-    public UserDao getUserDao(){
-        UserDao userDao = new UserDao();
-        userDao.put(getFirstUser());
-        userDao.put(getSecondUser());
-        return userDao;
-    }
-
-    @Bean(name = "auditoriumDao")
-    public AuditoriumDao getAuditoriumDao() throws IOException {
-        AuditoriumDao auditoriumDao = new AuditoriumDao();
-        auditoriumDao.init();
-        return auditoriumDao;
-    }
-
     @Bean(name = "ticket1")
     public Ticket getFirstTicket(){
         return new Ticket(getFirstUser(), getEvent(), getEventDateTime(), 1L);
@@ -195,5 +183,15 @@ public class SpringConfiguration {
     @Bean(name = "luckyAspect")
     public LuckyWinnerAspect getLuckyWinnerAspect(){
         return new LuckyWinnerAspect();
+    }
+
+    @Bean(name = "eventService")
+    public IEventService getEventService(){
+        return new EventService();
+    }
+
+    @Bean(name = "userService")
+    public IUserService getUserService(){
+        return new UserService();
     }
 }

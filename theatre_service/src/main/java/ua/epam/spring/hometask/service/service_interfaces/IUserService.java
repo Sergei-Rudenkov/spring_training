@@ -1,9 +1,10 @@
-package ua.epam.spring.hometask.service;
+package ua.epam.spring.hometask.service.service_interfaces;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import ua.epam.spring.hometask.domain.User;
+import ua.epam.spring.hometask.service.service_interfaces.IAbstractDomainObjectService;
 
 /**
  * @author Yuriy_Tkach

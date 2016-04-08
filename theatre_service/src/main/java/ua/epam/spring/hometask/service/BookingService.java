@@ -6,6 +6,8 @@ import ua.epam.spring.hometask.dao.UserDao;
 import ua.epam.spring.hometask.domain.Event;
 import ua.epam.spring.hometask.domain.Ticket;
 import ua.epam.spring.hometask.domain.User;
+import ua.epam.spring.hometask.service.service_interfaces.IBookingService;
+import ua.epam.spring.hometask.service.service_interfaces.IDiscountService;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

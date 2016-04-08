@@ -16,10 +16,10 @@ import ua.epam.spring.hometask.domain.DomainObject;
 import ua.epam.spring.hometask.domain.Event;
 import ua.epam.spring.hometask.domain.Ticket;
 import ua.epam.spring.hometask.domain.User;
-import ua.epam.spring.hometask.service.IAbstractDomainObjectService;
-import ua.epam.spring.hometask.service.IBookingService;
-import ua.epam.spring.hometask.service.IEventService;
-import ua.epam.spring.hometask.service.IUserService;
+import ua.epam.spring.hometask.service.service_interfaces.IAbstractDomainObjectService;
+import ua.epam.spring.hometask.service.service_interfaces.IBookingService;
+import ua.epam.spring.hometask.service.service_interfaces.IEventService;
+import ua.epam.spring.hometask.service.service_interfaces.IUserService;
 
 public class BookingState extends AbstractState {
 

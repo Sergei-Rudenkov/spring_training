@@ -1,5 +1,6 @@
 package ua.epam.spring.hometask.domain;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.NavigableMap;
@@ -11,7 +12,11 @@ import java.util.TreeSet;
 /**
  * @author Yuriy_Tkach
  */
+@Entity
+@Table(name = "EVENT")
 public class Event extends DomainObject {
+
+    private int id;
 
     private String name;
 

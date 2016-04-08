@@ -1,18 +1,15 @@
 package ua.epam.spring.hometask.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import ua.epam.spring.hometask.domain.Event;
 import ua.epam.spring.hometask.domain.User;
+import ua.epam.spring.hometask.service.service_interfaces.IDiscountService;
 import ua.epam.spring.hometask.strategy.DiscountStrategy;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.xml.ws.Action;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 /**

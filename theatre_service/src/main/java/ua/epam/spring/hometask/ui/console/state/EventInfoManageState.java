@@ -6,8 +6,8 @@ import java.util.stream.Collectors;
 
 import ua.epam.spring.hometask.domain.Auditorium;
 import ua.epam.spring.hometask.domain.Event;
-import ua.epam.spring.hometask.service.IAuditoriumService;
-import ua.epam.spring.hometask.service.IEventService;
+import ua.epam.spring.hometask.service.service_interfaces.IAuditoriumService;
+import ua.epam.spring.hometask.service.service_interfaces.IEventService;
 
 public class EventInfoManageState extends AbstractState {
 

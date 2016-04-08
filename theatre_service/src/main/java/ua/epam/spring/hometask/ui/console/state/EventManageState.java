@@ -7,11 +7,12 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 
+import org.springframework.stereotype.Component;
 import ua.epam.spring.hometask.domain.Auditorium;
 import ua.epam.spring.hometask.domain.Event;
 import ua.epam.spring.hometask.domain.EventRating;
-import ua.epam.spring.hometask.service.IAuditoriumService;
-import ua.epam.spring.hometask.service.IEventService;
+import ua.epam.spring.hometask.service.service_interfaces.IAuditoriumService;
+import ua.epam.spring.hometask.service.service_interfaces.IEventService;
 
 /**
  * State for managing events
@@ -20,7 +21,6 @@ import ua.epam.spring.hometask.service.IEventService;
  */
 public class EventManageState extends AbstractDomainObjectManageState<Event, IEventService> {
 
-    @Autowired
     private IAuditoriumService auditoriumService;
 
     public EventManageState(ApplicationContext context) {
