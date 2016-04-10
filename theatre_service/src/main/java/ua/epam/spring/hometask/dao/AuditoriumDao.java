@@ -33,7 +33,7 @@ public class AuditoriumDao {
     static final String GET_ALL_QUERY = "select * from AUDITORIUM";
 
     public Set<Auditorium> getAll() {
-        return new HashSet<>(jdbcTemplate.query(GET_ALL_QUERY, (rs, rowNum) -> {
+        return new HashSet<Auditorium>(jdbcTemplate.query(GET_ALL_QUERY, (rs, rowNum) -> {
             Auditorium auditorium = new Auditorium();
             auditorium.setId(rs.getLong(1));
             auditorium.setName(rs.getString(2));

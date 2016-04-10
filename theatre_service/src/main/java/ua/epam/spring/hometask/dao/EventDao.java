@@ -25,7 +25,7 @@ public class EventDao {
     static final String GET_ALL_QUERY = "select * from EVENT";
 
     public Set<Event> getAll() {
-        return new HashSet<>(jdbcTemplate.query(GET_ALL_QUERY, (rs, rowNum) -> {
+        return new HashSet<Event>(jdbcTemplate.query(GET_ALL_QUERY, (rs, rowNum) -> {
             Event event = new Event();
             event.setId(rs.getLong(1));
             event.setName(rs.getString(2));
@@ -35,7 +35,7 @@ public class EventDao {
         }));
     }
 
-    public void remove(Event event){
+    public void remove(Event event) {
         jdbcTemplate.update(con -> {
             PreparedStatement statement = con.prepareStatement(DELETE_QUERY);
             statement.setLong(1, event.getId());
@@ -43,7 +43,7 @@ public class EventDao {
         });
     }
 
-    public void put(Event event){
+    public void put(Event event) {
         Object[] values = {event.getId(), event.getName(), event.getBasePrice(), event.getRating().name()};
         int[] types = {Types.INTEGER, Types.VARCHAR, Types.INTEGER, Types.INTEGER};
         jdbcTemplate.update(INSERT_QUERY, values, types);

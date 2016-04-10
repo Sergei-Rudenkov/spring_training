@@ -4,6 +4,10 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.beans.factory.annotation.Autowired;
+import ua.epam.spring.hometask.dao.BookingCounterDao;
+import ua.epam.spring.hometask.dao.CallCounterDao;
+import ua.epam.spring.hometask.dao.PriceCounterDao;
 import ua.epam.spring.hometask.domain.Event;
 import ua.epam.spring.hometask.domain.Ticket;
 
@@ -16,9 +20,15 @@ import java.util.*;
  */
 @Aspect
 public class CounterAspect {
-    private Map<String, Integer> callCounter = new HashMap<>();
-    private Map<String, Integer> priceCounter = new HashMap<>();
-    private Map<String, Integer> bookingCounter = new HashMap<>();
+
+    @Autowired
+    private BookingCounterDao bookingCounterDao;
+
+    @Autowired
+    private CallCounterDao callCounterDao;
+
+    @Autowired
+    private PriceCounterDao priceCounterDao;
 
     @Pointcut("execution(* ua.epam.spring.hometask.service.EventService.getByName(..))")
     private void callEventByName() {
@@ -28,12 +38,12 @@ public class CounterAspect {
     public void countCallByName(JoinPoint joinPoint) {
         Object[] arguments = joinPoint.getArgs();
         String eventName = (String) arguments[0];
-        if (callCounter.containsKey(eventName)) {
-            callCounter.put(eventName, callCounter.get(eventName) + 1);
+        if (callCounterDao.getAll().containsKey(eventName)) {
+            callCounterDao.put(eventName, callCounterDao.get(eventName) + 1);
         } else {
-            callCounter.put(eventName, 1);
+            callCounterDao.put(eventName, 1);
         }
-        System.out.println(String.format("[ASPECT LOG]: %s, was called by name %dth time", eventName, callCounter.get(eventName)));
+        System.out.println(String.format("[ASPECT LOG]: %s, was called by name %dth time", eventName, callCounterDao.get(eventName)));
     }
 
     @Pointcut("execution(* ua.epam.spring.hometask.service.BookingService.getTicketsPrice(..))")
@@ -45,12 +55,12 @@ public class CounterAspect {
         Object[] arguments = joinPoint.getArgs();
         Event event = (Event) arguments[0];
         String eventName = event.getName();
-        if (priceCounter.containsKey(eventName)) {
-            priceCounter.put(eventName, priceCounter.get(eventName) + 1);
+        if (priceCounterDao.getAll().containsKey(eventName)) {
+            priceCounterDao.put(eventName, priceCounterDao.get(eventName) + 1);
         } else {
-            priceCounter.put(eventName, 1);
+            priceCounterDao.put(eventName, 1);
         }
-        System.out.println(String.format("[ASPECT LOG]: %s, price was required %dth time", eventName, priceCounter.get(eventName)));
+        System.out.println(String.format("[ASPECT LOG]: %s, price was required %dth time", eventName, priceCounterDao.get(eventName)));
     }
 
     @Pointcut("execution(* ua.epam.spring.hometask.service.BookingService.bookTickets(..))")
@@ -65,12 +75,12 @@ public class CounterAspect {
         String eventName = null;
         while (ticketsIterator.hasNext()) {
             eventName = ticketsIterator.next().getEvent().getName();
-            if (bookingCounter.containsKey(eventName)) {
-                bookingCounter.put(eventName, bookingCounter.get(eventName) + 1);
+            if (bookingCounterDao.getAll().containsKey(eventName)) {
+                bookingCounterDao.put(eventName, bookingCounterDao.get(eventName) + 1);
             } else {
-                bookingCounter.put(eventName, 1);
+                bookingCounterDao.put(eventName, 1);
             }
         }
-        System.out.println(String.format("[ASPECT LOG]: %s, tickets were booked %dth times", eventName, bookingCounter.get(eventName)));
+        System.out.println(String.format("[ASPECT LOG]: %s, tickets were booked %dth times", eventName, bookingCounterDao.get(eventName)));
     }
 }

@@ -33,7 +33,7 @@ public class UserDao {
             user.setFirstName(rs.getString(2));
             user.setLastName(rs.getString(3));
             user.setEmail(rs.getString(4));
-            if(rs.getDate(5) != null) {
+            if (rs.getDate(5) != null) {
                 user.setBirthday(rs.getDate(5).toLocalDate());
             }
             return user;
@@ -41,7 +41,7 @@ public class UserDao {
     }
 
 
-    public void remove(User user){
+    public void remove(User user) {
         jdbcTemplate.update(con -> {
             PreparedStatement statement = con.prepareStatement(DELETE_QUERY);
             statement.setLong(1, user.getId());
@@ -49,14 +49,12 @@ public class UserDao {
         });
     }
 
-    public void put(User user){
+    public void put(User user) {
         Object[] values = {user.getId(), user.getFirstName(), user.getLastName(), user.getEmail(), user.getBirthday()};
         int[] types = {Types.INTEGER, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.DATE};
         jdbcTemplate.update(INSERT_QUERY, values, types);
     }
 }
-
-
 
 
 //    CREATE TABLE THEATRE_USER(
