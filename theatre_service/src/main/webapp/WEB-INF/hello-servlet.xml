@@ -10,13 +10,19 @@
     <context:component-scan base-package="ua.epam.spring.hometask" />
     <context:annotation-config/>
 
-    <bean id="viewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
-        <property name="cache" value="true"/>
-        <property name="prefix" value="/WEB-INF/ftl"/>
-        <property name="suffix" value=".ftl"/>
+    <!--<bean id="viewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">-->
+        <!--<property name="cache" value="true"/>-->
+        <!--&lt;!&ndash;<property name="prefix" value="/WEB-INF/ftl"/>&ndash;&gt;-->
+        <!--<property name="suffix" value=".ftl"/>-->
+    <!--</bean>-->
+
+    <!--<bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">-->
+        <!--<property name="templateLoaderPath" value="/WEB-INF/ftl/"/>-->
+    <!--</bean>-->
+
+    <bean id="pdfView"
+          class="ua.epam.spring.hometask.view.UserPdfView">
     </bean>
 
-    <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
-        <property name="templateLoaderPath" value="/WEB-INF/ftl/"/>
-    </bean>
+
 </beans>
