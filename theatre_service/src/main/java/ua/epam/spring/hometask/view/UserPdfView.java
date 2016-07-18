@@ -1,6 +1,7 @@
 package ua.epam.spring.hometask.view;
 
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,13 +22,16 @@ public class UserPdfView extends AbstractPdfView {
                                     Document document, PdfWriter writer, HttpServletRequest req,
                                     HttpServletResponse resp) throws Exception {
 
-        User user = (User) model.get("command");
+        Set<User> users = (Set<User>) model.get("usersList");
 
-        Paragraph header = new Paragraph(new Chunk("Generate Pdf USing Spring Mvc",FontFactory.getFont(FontFactory.HELVETICA, 30)));
-        Paragraph by = new Paragraph(new Chunk("Author " + user.getFirstName() + " " + user.getLastName(),FontFactory.getFont(FontFactory.HELVETICA, 20)));
-
+        Paragraph header = new Paragraph(new Chunk("Generate Pdf USing Spring Mvc",FontFactory.getFont(FontFactory.HELVETICA, 20)));
         document.add(header);
-        document.add(by);
+
+        for(User user : users) {
+            Paragraph by = new Paragraph(new Chunk("User " + user.getFirstName() + " " + user.getLastName(), FontFactory.getFont(FontFactory.HELVETICA, 12)));
+            document.add(by);
+        }
+
 
     }
 
