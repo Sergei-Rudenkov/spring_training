@@ -10,4 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/booking")
 public class BookingController {
+
+    // FIXME: 10%: 2. For all BookingFacde operations implement Spring MVC annotation-based controllers.
 }

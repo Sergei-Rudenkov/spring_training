@@ -20,6 +20,8 @@ import java.io.*;
 @Controller
 public class UserController {
 
+    // FIXME: 5%: 3. For operations that return one or several entites as a result (e.g. getUserByEmail, getUsersByName, getBookedTickets) implement simple views rendered via Velocity template engine. Use InternalResourceViewResolver for view resolving procedure.
+
     @Autowired
     UserDao userDao;
 
@@ -29,12 +31,14 @@ public class UserController {
         return "user";
     }
 
+    // produces is not what you need here
     @RequestMapping(value = "/user_pdf", method = RequestMethod.GET, produces = "application/pdf")
     public ModelAndView usersPdf(@ModelAttribute("model") ModelMap model) {
         return new ModelAndView("pdfView", "usersList", userDao.getAll());
     }
 
     @RequestMapping(value = "/user_upload", method = RequestMethod.POST, produces = "application/pdf")
+    // FIXME: 3% Implement batch loading of users and events into system. what about events?
     public ModelAndView usersUploadMultipart(@RequestParam("name") String name, @RequestParam("file") MultipartFile multipartFile, HttpServletRequest request) {
         if (!multipartFile.isEmpty()) {
             String rootPath = request.getSession().getServletContext().getRealPath("/");
@@ -42,6 +46,7 @@ public class UserController {
 
             File serverFile = new File(dir.getAbsolutePath() + File.separator + multipartFile.getOriginalFilename());
 
+            // FIXME: 2% why just not multipartFile.transferTo(serverFile); ? :)
             try {
                 try (InputStream is = multipartFile.getInputStream();
                      BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile))) {
@@ -60,6 +65,7 @@ public class UserController {
 
                 try (FileReader fileReader = new FileReader(serverFile);
                      CSVReader reader = new CSVReader(fileReader)) {
+                    // FIXME: 1% please format your code
                     {
                         nextLine = reader.readNext();
                             User newUser = new User();
@@ -78,6 +84,7 @@ public class UserController {
     @ExceptionHandler(Exception.class)
     public ModelAndView handleAllException(Exception ex) {
         ModelAndView model = new ModelAndView("error_screen");
+        // FIXME: 2% you need to print exception message here
         model.addObject("error", "this is Exception.class");
         return model;
     }

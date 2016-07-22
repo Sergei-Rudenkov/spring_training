@@ -30,5 +30,8 @@
 
     </bean>
 
+    <!--<bean id="springSecurityFilterChain" class="org.springframework.web.filter.DelegatingFilterProxy">-->
+    <!--</bean>-->
+
 
 </beans>
