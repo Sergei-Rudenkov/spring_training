@@ -65,15 +65,15 @@ public class UserController {
 
                 try (FileReader fileReader = new FileReader(serverFile);
                      CSVReader reader = new CSVReader(fileReader)) {
-                    // FIXME: 1% please format your code
                     {
                         nextLine = reader.readNext();
-                            User newUser = new User();
-                            newUser.setFirstName(nextLine[0]);
-                            newUser.setLastName(nextLine[1]);
-                            userDao.put(newUser);
-                        }while(reader.readNext() != null);
+                        User newUser = new User();
+                        newUser.setFirstName(nextLine[0]);
+                        newUser.setLastName(nextLine[1]);
+                        userDao.put(newUser);
                     }
+                    while (reader.readNext() != null) ;
+                }
             } catch (IOException e) {
                 System.out.println("error while reading csv and put to db : " + e.getMessage());
             }
@@ -84,8 +84,7 @@ public class UserController {
     @ExceptionHandler(Exception.class)
     public ModelAndView handleAllException(Exception ex) {
         ModelAndView model = new ModelAndView("error_screen");
-        // FIXME: 2% you need to print exception message here
-        model.addObject("error", "this is Exception.class");
+        model.addObject("error", ex);
         return model;
     }
 }

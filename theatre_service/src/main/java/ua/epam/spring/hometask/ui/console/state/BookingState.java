@@ -111,7 +111,7 @@ public class BookingState extends AbstractState {
         }
         
         Set<Ticket> ticketsToBook = seats.stream().map(seat -> new Ticket(userForBooking, event, airDate, seat)).collect(Collectors.toSet());
-        double price = bookingService.getTicketsPrice(event, airDate, user, seats);
+        double price = bookingService.buyTicketsForEvent(event, airDate, user, seats);
         bookingService.bookTickets(ticketsToBook);
         System.out.println("Tickets booked! Total price: " + price);
     }
@@ -134,7 +134,7 @@ public class BookingState extends AbstractState {
             System.out.println("No user found");
         }
         
-        double price = bookingService.getTicketsPrice(event, airDate, user, seats);
+        double price = bookingService.buyTicketsForEvent(event, airDate, user, seats);
         printDelimiter();
         System.out.println("Price for tickets: " + price);
     }

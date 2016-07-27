@@ -2,6 +2,8 @@ package ua.epam.spring.hometask.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import ua.epam.spring.hometask.dao.UserDao;
 import ua.epam.spring.hometask.domain.Event;
 import ua.epam.spring.hometask.domain.Ticket;
@@ -19,6 +21,7 @@ import java.util.stream.Collectors;
  * Created by sergei_rudenkov on 25.3.16.
  */
 @Service
+@Transactional(propagation= Propagation.SUPPORTS)
 public class BookingService implements IBookingService {
 
     @Autowired
@@ -28,7 +31,8 @@ public class BookingService implements IBookingService {
     private IDiscountService discountService;
 
     @Override
-    public double getTicketsPrice(@Nonnull Event event, @Nonnull LocalDateTime dateTime, @Nullable User user, @Nonnull Set<Long> seats) {
+    @Transactional
+    public void buyTicketsForEvent(@Nonnull Event event, @Nonnull LocalDateTime dateTime, @Nullable User user, @Nonnull Set<Long> seats) {
         double basePrice = event.getBasePrice();
         double discount = discountService.getDiscount(user, event, dateTime, seats.size());
         double priceAllowance = 1.0;
@@ -39,7 +43,9 @@ public class BookingService implements IBookingService {
             case HIGH:
                 priceAllowance = 1.5;
         }
-        return basePrice * priceAllowance * (1 - (discount / 100)) * seats.size();
+        user.getAccount().setPrepaidMoney(user.getAccount().getPrepaidMoney() - basePrice * priceAllowance * (1 - (discount / 100)) * seats.size());
+        for (Long seat : seats)
+            user.getTickets().add(new Ticket(user, event, dateTime, seat));
     }
 
     @Override
