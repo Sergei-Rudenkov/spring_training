@@ -16,7 +16,7 @@ import java.util.Random;
 @Aspect
 public class LuckyWinnerAspect {
 
-    @Around("execution(* ua.epam.spring.hometask.service.BookingService.getTicketsPrice(..))")
+    @Around("execution(* ua.epam.spring.hometask.service.BookingService.buyTicketsForEvent(..))")
     public double countDiscounts(ProceedingJoinPoint joinPoint) throws Throwable {
         if (isLucky()){
             return 0.0;

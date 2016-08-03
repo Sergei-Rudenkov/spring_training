@@ -36,7 +36,7 @@ public class CounterAspect {
         System.out.println(String.format("[ASPECT LOG]: %s, was called by name %dth time", eventName, callCounter.get(eventName)));
     }
 
-    @Pointcut("execution(* ua.epam.spring.hometask.service.BookingService.getTicketsPrice(..))")
+    @Pointcut("execution(* ua.epam.spring.hometask.service.BookingService.buyTicketsForEvent(..))")
     private void callEventTicketPrice() {
     }
 

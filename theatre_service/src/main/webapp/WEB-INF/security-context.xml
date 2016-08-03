@@ -9,7 +9,7 @@
 
     <security:http auto-config="true" use-expressions="true">
         <!--<security:form-login login-page="/login.html" default-target-url="/user"/>-->
-        <security:intercept-url pattern="/user" access="hasRole('ROLE_USER')"/>
+        <security:intercept-url pattern="/user" access="hasRole('ROLE_REGISTERED_USER')"/>
         <security:intercept-url pattern="/ticket" access="hasRole('ROLE_BOOKING_MANAGER')"/>
         <security:logout logout-success-url="/login?logout" delete-cookies="JSESSIONID" />
 
@@ -17,19 +17,9 @@
                 token-validity-seconds="1209600"
                 remember-me-parameter="remember-me"
                 data-source-ref="dataSource" />
-
-        <!--<security:intercept-url pattern="/login.html" access="permitAll" />-->
-        <!--<security:intercept-url pattern="/j_spring_security_check" access="permitAll"/>-->
     </security:http>
 
-    <!--<security:authentication-manager>-->
-        <!--<security:authentication-provider>-->
-            <!--<security:user-service>-->
-                <!--<security:user password="password" name="user" authorities="ROLE_REGISTERED_USER" />-->
-                <!--<security:user password="password" name="manager" authorities="ROLE_BOOKING_MANAGER" />-->
-            <!--</security:user-service>-->
-        <!--</security:authentication-provider>-->
-    <!--</security:authentication-manager>-->
+
 
     <security:authentication-manager>
         <security:authentication-provider>
