@@ -29,7 +29,7 @@ public interface IBookingService {
      * @param seats
      *            Set of seat numbers that user wants to buy
      */
-    void buyTicketsForEvent(@Nonnull Event event, @Nonnull LocalDateTime dateTime, @Nullable User user,
+    double buyTicketsForEvent(@Nonnull Event event, @Nonnull LocalDateTime dateTime, @Nullable User user,
                               @Nonnull Set<Long> seats);
 
     /**

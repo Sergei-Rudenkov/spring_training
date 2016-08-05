@@ -132,7 +132,7 @@ public class SpringConfiguration {
         Event event = new Event();
         Arrays.asList(1,2,3).stream().max(Integer::compareTo).get();
         event.setId(1L);
-        event.setName("Grand concert");
+        event.setName("grand_concert");
         event.setRating(EventRating.MID);
         event.setBasePrice(10);
         event.addAirDateTime(getEventDateTime());

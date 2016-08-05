@@ -32,7 +32,7 @@ public class BookingService implements IBookingService {
 
     @Override
     @Transactional
-    public void buyTicketsForEvent(@Nonnull Event event, @Nonnull LocalDateTime dateTime, @Nullable User user, @Nonnull Set<Long> seats) {
+    public double buyTicketsForEvent(@Nonnull Event event, @Nonnull LocalDateTime dateTime, @Nullable User user, @Nonnull Set<Long> seats) {
         double basePrice = event.getBasePrice();
         double discount = discountService.getDiscount(user, event, dateTime, seats.size());
         double priceAllowance = 1.0;
@@ -46,6 +46,7 @@ public class BookingService implements IBookingService {
         user.getAccount().setPrepaidMoney(user.getAccount().getPrepaidMoney() - basePrice * priceAllowance * (1 - (discount / 100)) * seats.size());
         for (Long seat : seats)
             user.getTickets().add(new Ticket(user, event, dateTime, seat));
+        return  basePrice * priceAllowance * (1 - (discount / 100)) * seats.size();
     }
 
     @Override

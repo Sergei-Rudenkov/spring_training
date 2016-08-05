@@ -1,5 +1,6 @@
 package ua.epam.spring.hometask.domain;
 
+import javax.xml.bind.annotation.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.NavigableMap;
@@ -11,16 +12,23 @@ import java.util.TreeSet;
 /**
  * @author Yuriy_Tkach
  */
+@XmlRootElement(name="event")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Event extends DomainObject {
 
+    @XmlAttribute(name="name")
     private String name;
 
+    @XmlElement(name="airDates")
     private NavigableSet<LocalDateTime> airDates = new TreeSet<>();
 
+    @XmlElement(name="basePrice")
     private double basePrice;
 
+    @XmlElement(name="rating")
     private EventRating rating;
 
+    @XmlElement(name="auditoriums")
     private NavigableMap<LocalDateTime, Auditorium> auditoriums = new TreeMap<>();
 
     /**
