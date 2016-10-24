@@ -1,3 +1,3 @@
-#### Code from Evgeny Borisov lection "Spring-потрошитель" implemented by me 
+#### Inspired by Evgeny Borisov lecture "Spring-потрошитель". I implemented examples from the lecture. 
 
 First part:  https://www.youtube.com/watch?v=BmBr5diz8WA
